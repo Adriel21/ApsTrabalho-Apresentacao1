@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition>
+
+	<h:form>
+	
+		<p:panel id="eventos" header="Eventos" style="margin-bottom:10px;">
+		
+		<h:panelGrid columns="4">
+			<p:outputLabel value="Pesquisar: " />
+			<p:inputText maxlength="50" size="30" />
+			<p:commandButton value="Buscar" />
+			<p:commandButton value="Adicionar" action="pageCadastroEvento"/>
+
+		</h:panelGrid>
+
+		<p:dataTable emptyMessage="Nenhum conteúdo encontrado">
+
+			<p:column headerText="Nome">
+			</p:column>
+
+			<p:column headerText="Sigla">
+			</p:column>
+
+			<p:column headerText="Data de Início">
+			</p:column>
+
+			<p:column headerText="Data de Fim">
+			</p:column>
+
+			<p:column headerText="Área">
+			</p:column>
+
+			<p:column headerText="Palavras Chave">
+			</p:column>
+
+		</p:dataTable>
+		
+		</p:panel>
+
+	</h:form>
+
+</ui:composition>
+
+</html>
