@@ -7,12 +7,13 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <ui:composition>
-	<p:growl id="msgGlobal" />
 
-	<h:form>
+	<p:growl id="msgLogin" sticky="true"/>
 
-		<p:panel id="login" header="Login" style="margin-bottom:10px;">
+	<h:form id="form">
 
+		<p:panel id="loginUsuario" header="Login" style="margin-bottom:10px;">
+			<br/>
 			<h:panelGrid columns="2">
 
 				<h:outputLabel for="email" value="E-mail:" />
@@ -21,15 +22,24 @@
 
 				<h:outputLabel for="senha" value="Senha:" />
 				<p:password value = "#{usuarioBean.senha}"/>
-				<br></br>
 				
-				<p:commandButton value="Logar-se" action="#{usuarioBean.logar()}" update = "msgErroLogin"/>
-
 			</h:panelGrid>
 			
-			<h:outputText id="msgErroLogin" value="#{usuarioBean.msgErroLogin}" />
+			<br/>
+			<h:panelGrid columns="2">
+			
+				<p:commandButton value="Acessar" action="#{usuarioBean.logar()}" 
+					update = ":msgLogin :form:loginUsuario">
+						
+				</p:commandButton>
+				<p:commandButton value="Cadastrar-se" ajax="false" action="pageCadastroUsuario.xhtml?faces-redirect=true" update="@form"/>
+				
+			</h:panelGrid>
+			
+			<br/>
 			
 		</p:panel>
+		
 	</h:form>
 
 </ui:composition>

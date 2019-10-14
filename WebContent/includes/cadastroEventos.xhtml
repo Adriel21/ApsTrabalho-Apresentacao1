@@ -8,39 +8,41 @@
 
 <ui:composition>
 
-	<h:form>
+	<p:growl id="msgCadastroEventos" sticky="true"/>
+
+	<h:form id="form">
 	
 		<center>
 			<p:panel id="cadastroEventos" header="Cadastrar Eventos" style="margin-bottom:10px;">
-			<h:panelGrid columns="2">
-
-				<p:outputLabel value="Nome:" />
-				<p:inputText value="#{eventoBean.evento.nome}" maxlength="50" size="30" />
-
-				<p:outputLabel value="Sigla: " />
-				<p:inputText value="#{eventoBean.evento.sigla}" maxlength="6" size="30" />
-
-				<p:outputLabel value="Data de Início:" />
-				<p:calendar value="#{eventoBean.evento.dataInicio}" />
-
-				<p:outputLabel value="Data de Fim:" />
-				<p:calendar value="#{eventoBean.evento.dataFim}" />
-
-				<p:outputLabel value="Área:" />
-				<p:inputText value="#{eventoBean.evento.areaDeConcentracao}" maxlength="50" size="30" />
-
-				<p:outputLabel value="Palavras Chave:" />
-				<p:inputText value="#{eventoBean.evento.palavraChave}" maxlength="50" size="30" />
-			</h:panelGrid>
-
-			<h:panelGrid columns="2">
-
-				<p:commandButton value="Adicionar" action="#{eventoBean.adicionar()}" process="@this" update="@none" />		
-				<p:commandButton value="Cancelar" />
-
-			</h:panelGrid>
-			
-			<h:outputText id="msg" value="#{eventoBean.msg}" />
+				<br/>
+				<h:panelGrid columns="2">
+	
+					<p:outputLabel value="Nome:" />
+					<p:inputText value="#{eventoBean.evento.nome}" maxlength="50" size="30" />
+	
+					<p:outputLabel value="Sigla: " />
+					<p:inputText value="#{eventoBean.evento.sigla}" maxlength="6" size="30" />
+	
+					<p:outputLabel value="Data de Início:" />
+					<p:calendar value="#{eventoBean.evento.dataInicio}" />
+	
+					<p:outputLabel value="Data de Fim:" />
+					<p:calendar value="#{eventoBean.evento.dataFim}" />
+	
+					<p:outputLabel value="Área:" />
+					<p:inputText value="#{eventoBean.evento.areaDeConcentracao}" maxlength="50" size="30" />
+	
+					<p:outputLabel value="Palavras Chave:" />
+					<p:inputText value="#{eventoBean.evento.palavraChave}" maxlength="50" size="30" />
+				</h:panelGrid>
+				
+				<br/>	
+				<h:panelGrid columns="2">
+	
+					<p:commandButton value="Adicionar" actionListener="#{eventoBean.adicionar()}" update=":msgCadastroEventos :form:cadastroEventos"/>
+					<p:commandButton ajax="false" value="Cancelar" action="pagePesquisaEvento.xhtml?faces-redirect=true"/>
+	
+				</h:panelGrid>
 			
 			</p:panel>
 		</center>

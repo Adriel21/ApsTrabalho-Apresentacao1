@@ -8,19 +8,29 @@ import javax.faces.bean.SessionScoped;
 
 import br.com.naosei.DAO.UsuarioDAO;
 import br.com.naosei.models.Usuario;
+import br.com.naosei.util.FacesUtil;
 
-@SessionScoped
 @ManagedBean
+@SessionScoped
 public class UsuarioBean {
 	
 	private Usuario usuario = new Usuario();
 	private List<Usuario> usuarios = new ArrayList<Usuario>();
-	private String msgErroCadastro;
-	private String msgErroLogin;
+//	private String msgCadastro;
+//	private String msgLogin;
 	private String email;
 	private String senha;
 	private static int id;
+	private boolean verificador;
 	
+	public boolean isVerificador() {
+		return verificador;
+	}
+
+	public void setverificador(boolean verificador) {
+		this.verificador = verificador;
+	}
+
 	public static int getId() {
 		return id;
 	}
@@ -29,21 +39,21 @@ public class UsuarioBean {
 		UsuarioBean.id = id;
 	}
 
-	public String getMsgErroCadastro() {
-		return msgErroCadastro;
-	}
-
-	public void setMsgErro(String msgErro) {
-		this.msgErroCadastro = msgErro;
-	}
-
-	public String getMsgErroLogin() {
-		return msgErroLogin;
-	}
-
-	public void setMsgErroLogin(String msgErroLogin) {
-		this.msgErroLogin = msgErroLogin;
-	}
+//	public String getMsgCadastro() {
+//		return msgCadastro;
+//	}
+//
+//	public void setMsgCadastro(String msgCadastro) {
+//		this.msgCadastro = msgCadastro;
+//	}
+//
+//	public String getMsgLogin() {
+//		return msgLogin;
+//	}
+//
+//	public void setMsgLogin(String msgLogin) {
+//		this.msgLogin = msgLogin;
+//	}
 
 	public String getEmail() {
 		return email;
@@ -74,28 +84,41 @@ public class UsuarioBean {
 		this.usuarios = usuarios;
 	}
 	
-	public String cadastrar() {
+	public void cadastrar() {
 		usuarios.add(usuario);
-		new UsuarioDAO().salvar(usuario);
+		this.verificador = new UsuarioDAO().salvar(usuario);
 		//this.msgErroCadastro = "Olá, " + usuario.getNome() + ", seu cadastro foi realizado com sucesso!";
+		System.out.println(verificador);
+		
+		if(this.verificador)
+			FacesUtil.adicionarMsgInfo("Cadastro realizado com sucesso!");
+		else
+			FacesUtil.adicionarMsgErro("E-mail já cadastrado.");
 		usuario = new Usuario();
-		return "telaLogin";
 	}
 	
 	public String logar() {
 
 		usuario.setId(new UsuarioDAO().checkLogin(email, senha));
-		System.out.println(usuario.getId());
+//		System.out.println(usuario.getId());
 
 		if (usuario.getId()>0) {
 			UsuarioBean.id = usuario.getId();
-			
-			return "pagePesquisaEvento";
+			System.out.println(UsuarioBean.id);
+			//this.msgLogin = "";
+			return "pagePesquisaEvento.xhtml?faces-redirect=true";
 		} else {
-			this.msgErroLogin = "E-mail ou senha incorretos!";
+			//this.msgLogin = "E-mail ou senha incorretos!";
+			FacesUtil.adicionarMsgErro("Usuário ou senha incorreto(s).");
 			return "E-mail ou senha incorretos!";
 		}
 
+	}
+	
+	public String sair() {
+		UsuarioBean.id = -1;
+		System.out.println(UsuarioBean.id);
+		return "pageLogin.xhtml?faces-redirect=true";
 	}
 	
 }

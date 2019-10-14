@@ -15,8 +15,6 @@
 				<p:menuitem value="Sobre equipe/empresa" url="#" />
 				<p:menuitem value="Informações..." url="#" />
 				<p:menuitem value="Ajuda" url="#" />
-				<p:separator />
-				<p:menuitem value="Quit" url="#" />
 			</p:submenu>
 
 			<p:submenu label="Perfil">
@@ -43,12 +41,8 @@
 				<p:menuitem value="Avaliar artigo" url="#" />
 			</p:submenu>
 
-			<p:submenu label="Sair" url="#">
-			</p:submenu>
-
 			<f:facet name="options">
-				<p:commandButton value="Login" icon="pi pi-home" action="telaLogin" />
-				<p:commandButton value="Cadastre-se" icon="pi pi-home" action="pageCadastroUsuario"/>
+				<p:commandButton value="Sair" ajax="false" action="#{usuarioBean.sair()}" update="@form"/>
 			</f:facet>
 		</p:menubar>
 	</h:form>

@@ -77,4 +77,13 @@ public class Evento {
 		this.areaDeConcentracao = areaDeConcentracao;
 	}
 
+	@Override
+	public String toString() {
+		return "Evento [id=" + id + ", nome=" + nome + ", sigla=" + sigla + ", dataInicio=" + dataInicio + ", dataFim="
+				+ dataFim + ", palavraChave=" + palavraChave + ", areaDeConcentracao=" + areaDeConcentracao
+				+ ", idAdministrador=" + idAdministrador + "]";
+	}
+	
+	
+
 }

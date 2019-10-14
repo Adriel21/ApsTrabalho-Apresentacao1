@@ -11,7 +11,7 @@ import br.com.naosei.models.Usuario;
 public class UsuarioDAO {
 
 	
-	public void salvar(Usuario usuario) {
+	public boolean salvar(Usuario usuario) {
 		
 		Connection conexao = FabricaConexao.getConexao();
 		
@@ -25,9 +25,13 @@ public class UsuarioDAO {
 			ps.setString(4, usuario.getInstituicao());
 			ps.execute();
 			FabricaConexao.fecharConexao();
+			
+			return true;
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return false;
 		}
 	}
 	
