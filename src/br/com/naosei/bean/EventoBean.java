@@ -93,10 +93,14 @@ public class EventoBean {
 	
 	public void carregarPesquisa() {
 		
+		this.eventos = new ArrayList<Evento>();
+		
 		try {
 			
 			EventoDAO eventoDao = new EventoDAO();
-			this.eventos = eventoDao.listar();
+			for(int i = (eventoDao.listar().size()-5); i<(eventoDao.listar().size()); i++){
+				eventos.add(eventoDao.listar().get(i));
+			}
 			
 		}catch(RuntimeException ex) {
 			

@@ -15,9 +15,8 @@ import br.com.naosei.util.FacesUtil;
 public class UsuarioBean {
 	
 	private Usuario usuario = new Usuario();
+	private Usuario usuario2 = new Usuario();
 	private List<Usuario> usuarios = new ArrayList<Usuario>();
-//	private String msgCadastro;
-//	private String msgLogin;
 	private String email;
 	private String senha;
 	private static int id;
@@ -39,22 +38,6 @@ public class UsuarioBean {
 		UsuarioBean.id = id;
 	}
 
-//	public String getMsgCadastro() {
-//		return msgCadastro;
-//	}
-//
-//	public void setMsgCadastro(String msgCadastro) {
-//		this.msgCadastro = msgCadastro;
-//	}
-//
-//	public String getMsgLogin() {
-//		return msgLogin;
-//	}
-//
-//	public void setMsgLogin(String msgLogin) {
-//		this.msgLogin = msgLogin;
-//	}
-
 	public String getEmail() {
 		return email;
 	}
@@ -71,12 +54,26 @@ public class UsuarioBean {
 		this.senha = senha;
 	}
 	
+	public void setVerificador(boolean verificador) {
+		this.verificador = verificador;
+	}
+
 	public Usuario getUsuario() {
 		return usuario;
 	}
+	
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
+	
+	public Usuario getUsuario2() {
+		return usuario2;
+	}
+
+	public void setUsuario2(Usuario usuario2) {
+		this.usuario2 = usuario2;
+	}
+
 	public List<Usuario> getUsuarios() {
 		return usuarios;
 	}
@@ -99,7 +96,7 @@ public class UsuarioBean {
 	
 	public String logar() {
 
-		usuario.setId(new UsuarioDAO().checkLogin(email, senha));
+		usuario = new UsuarioDAO().checkLogin(email, senha);
 //		System.out.println(usuario.getId());
 
 		if (usuario.getId()>0) {
@@ -121,4 +118,48 @@ public class UsuarioBean {
 		return "pageLogin.xhtml?faces-redirect=true";
 	}
 	
+	public void atualizarCadastro() {
+		
+		if(usuario2.getNome() == "")			usuario2.setNome(usuario.getNome());
+		
+		if(usuario2.getEmail() == "")			usuario2.setEmail(usuario.getEmail());
+		else   									email = usuario2.getEmail();
+		
+		if(usuario2.getSenha() == "")			usuario2.setSenha(usuario.getSenha());
+		else   									senha = usuario2.getSenha();
+		
+		if(usuario2.getInstituicao() == "")		usuario2.setInstituicao(usuario.getInstituicao());
+		
+		usuario2.setId(usuario.getId());
+		
+		new UsuarioDAO().trocaEmailTemporariamente(usuario2);
+		
+		this.verificador = new UsuarioDAO().atualizarCadastro(usuario2);
+		
+		if(this.verificador)
+			FacesUtil.adicionarMsgInfo("Atualização cadastral realizada com sucesso!");
+		else
+			FacesUtil.adicionarMsgErro("E-mail já cadastrado.");
+		
+		usuario2 = new Usuario();
+		usuario = new UsuarioDAO().checkLogin(email, senha);
+		
+	}
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

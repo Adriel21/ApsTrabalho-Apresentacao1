@@ -35,7 +35,9 @@ public class UsuarioDAO {
 		}
 	}
 	
-	public int checkLogin(String email, String senha) {
+	public Usuario checkLogin(String email, String senha) {
+		
+		Usuario usuario = new Usuario();
 		
 		try {
 			Connection conexao = FabricaConexao.getConexao();
@@ -46,15 +48,75 @@ public class UsuarioDAO {
 			
 			ResultSet resultSet = ps.executeQuery();
 			
-			if(resultSet.next())				return resultSet.getInt(1);
-			else 								return 0;
+			resultSet.next();
+			
+			usuario.setId(resultSet.getInt("id"));
+			usuario.setNome(resultSet.getString("nome"));
+			usuario.setEmail(resultSet.getString("email"));
+			usuario.setSenha(resultSet.getString("senha"));
+			usuario.setInstituicao(resultSet.getString("instituicao"));
+			
+			return usuario;
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return 0;
+			return usuario;
 		}
 		
+	}
+	
+	public void trocaEmailTemporariamente(Usuario usuario) {
+		
+		Connection conexao = FabricaConexao.getConexao();
+		
+		String emailTemporario = usuario.getEmail() + "1";
+		
+		System.out.println(emailTemporario);
+		
+		try {
+			
+			PreparedStatement ps = conexao.prepareCall
+					("UPDATE `aps_database`.`administrador` SET `email` = ? WHERE `id` = ?");
+			
+			ps.setString(1, emailTemporario);
+			ps.setInt(2, usuario.getId());
+			ps.execute();
+			FabricaConexao.fecharConexao();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
+	
+	public boolean atualizarCadastro(Usuario usuario) {
+		
+		Connection conexao = FabricaConexao.getConexao();
+		
+		try {
+			
+			PreparedStatement ps = conexao.prepareCall
+					("UPDATE `aps_database`.`administrador` SET `nome` = ?, `email` = ?, "
+					+ "`senha` = ?, `instituicao` = ? WHERE `id` = ?");
+			
+			ps.setString(1, usuario.getNome());
+			ps.setString(2, usuario.getEmail());
+			ps.setString(3, usuario.getSenha());
+			ps.setString(4, usuario.getInstituicao());
+			ps.setInt(5, usuario.getId());
+			ps.execute();
+			FabricaConexao.fecharConexao();
+			
+			return true;
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+		
+	}
+	
 }
