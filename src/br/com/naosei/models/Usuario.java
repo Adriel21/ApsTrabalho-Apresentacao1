@@ -7,6 +7,7 @@ public class Usuario {
 	private String email;
 	private String senha;
 	private String instituicao;
+	private String tipo;
 	
 	public int getId() {
 		return id;
@@ -38,5 +39,12 @@ public class Usuario {
 	public void setInstituicao(String instituicao) {
 		this.instituicao = instituicao;
 	}
+	public String getTipo() {
+		return tipo;
+	}
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+	
 	
 }

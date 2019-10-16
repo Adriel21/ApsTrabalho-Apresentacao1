@@ -29,10 +29,8 @@
 			<h:panelGrid columns="2">
 			
 				<p:commandButton value="Acessar" action="#{usuarioBean.logar()}" 
-					update = ":msgLogin :form:loginUsuario">
-						
-				</p:commandButton>
-				<p:commandButton value="Cadastrar-se" ajax="false" action="pageCadastroUsuario.xhtml?faces-redirect=true" update="@form"/>
+				update = ":msgLogin :form:loginUsuario"/>
+				<p:commandButton value="Cadastrar-se" ajax="false" action="pageSelecionaTipoUsuario.xhtml?faces-redirect=true" update="@form"/>
 				
 			</h:panelGrid>
 			

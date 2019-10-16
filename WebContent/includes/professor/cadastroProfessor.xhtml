@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition>
+
+	<p:growl id="msgCadastro" sticky="true"/>
+
+	<h:form id="form">
+		
+		<center>
+		
+			<p:panel id="cadastroUsuario" header="Cadastrar Usuário" style="margin-bottom:10px;">
+			
+				<br/>
+				<h:panelGrid columns="2">
+	 
+					<p:outputLabel value="Nome:" />
+					<p:inputText value="#{professorBean.professor.nome}" maxlength="50" size="30"/>
+	
+					<p:outputLabel value="E-mail:" />
+					<p:inputText id="email" value="#{professorBean.professor.email}" maxlength="50" size="30" />
+	
+					<p:outputLabel value="Senha:" />
+					<p:password id="senha" value="#{professorBean.professor.senha}" maxlength="50" size="30" />
+	
+					<p:outputLabel value="Instituição:" />
+					<p:inputText id="instituicao" value="#{professorBean.professor.instituicao}" maxlength="50" size="30" />
+					
+					<p:outputLabel value="Titulação:" />
+					<p:inputText id="titulacao" value="#{professorBean.professor.titulacao}" maxlength="50" size="30" />
+					
+					<p:outputLabel value="Área de Pesquisa:" />
+					<p:inputText id="areaDePesquisa" value="#{professorBean.professor.areaDePesquisa}" maxlength="50" size="30" />
+					
+				</h:panelGrid>
+				
+				<br/>
+				<br/>
+				<h:panelGrid columns="2">
+				
+					<p:commandButton value="Cadastrar" actionListener="#{professorBean.cadastrar()}" 
+					 update = ":msgCadastro :form:cadastroUsuario"/>
+					<p:commandButton value="Cancelar" action="pageLogin.xhtml?faces-redirect=true"
+					 update = ":form:cadastroUsuario"/>
+	
+				</h:panelGrid>
+				
+			</p:panel>
+			 
+		</center>
+		
+	</h:form>
+
+</ui:composition>
+
+</html>

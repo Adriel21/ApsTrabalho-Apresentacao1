@@ -17,7 +17,7 @@ public class UsuarioDAO {
 		
 		try {
 			
-			PreparedStatement ps = conexao.prepareCall("INSERT INTO `aps_database`.`administrador`(`nome`, `email`, `senha`, `instituicao`) VALUES(?, ?, ?, ?)");
+			PreparedStatement ps = conexao.prepareCall("INSERT INTO `aps_database`.`usuario`(`nome`, `email`, `senha`, `instituicao`) VALUES(?, ?, ?, ?)");
 			
 			ps.setString(1, usuario.getNome());
 			ps.setString(2, usuario.getEmail());
@@ -42,7 +42,7 @@ public class UsuarioDAO {
 		try {
 			Connection conexao = FabricaConexao.getConexao();
 			PreparedStatement ps;
-			ps = conexao.prepareStatement("SELECT * FROM administrador WHERE email = ? AND senha = ?");
+			ps = conexao.prepareStatement("SELECT * FROM usuario WHERE email = ? AND senha = ?");
 			ps.setString(1, email);
 			ps.setString(2, senha);
 			
@@ -55,6 +55,7 @@ public class UsuarioDAO {
 			usuario.setEmail(resultSet.getString("email"));
 			usuario.setSenha(resultSet.getString("senha"));
 			usuario.setInstituicao(resultSet.getString("instituicao"));
+			usuario.setTipo(resultSet.getString("tipo"));
 			
 			return usuario;
 			
@@ -77,7 +78,7 @@ public class UsuarioDAO {
 		try {
 			
 			PreparedStatement ps = conexao.prepareCall
-					("UPDATE `aps_database`.`administrador` SET `email` = ? WHERE `id` = ?");
+					("UPDATE `aps_database`.`usuario` SET `email` = ? WHERE `id` = ?");
 			
 			ps.setString(1, emailTemporario);
 			ps.setInt(2, usuario.getId());
@@ -98,7 +99,7 @@ public class UsuarioDAO {
 		try {
 			
 			PreparedStatement ps = conexao.prepareCall
-					("UPDATE `aps_database`.`administrador` SET `nome` = ?, `email` = ?, "
+					("UPDATE `aps_database`.`usuario` SET `nome` = ?, `email` = ?, "
 					+ "`senha` = ?, `instituicao` = ? WHERE `id` = ?");
 			
 			ps.setString(1, usuario.getNome());

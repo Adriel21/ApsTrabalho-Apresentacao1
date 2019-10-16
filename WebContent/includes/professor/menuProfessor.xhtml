@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition>
+
+	<h:form>
+		<p:growl id="messages" />
+		<p:menubar>
+			<p:submenu label="Página Principal">
+				<p:menuitem value="Sobre equipe/empresa" url="#" />
+				<p:menuitem value="Informações..." url="#" />
+				<p:menuitem value="Ajuda" url="#" />
+			</p:submenu>
+
+			<p:submenu label="Perfil">
+				<p:menuitem value="Vizualizar perfil" url="#" />
+				<p:menuitem value="Atualizar cadastro" url="http://localhost:8080/ApsTrabalho-Apresentacao1/faces/pages/professor/pageAtualizarCadastroProfessor.xhtml" />
+
+			</p:submenu>
+
+			<p:submenu label="Eventos">
+				<p:menuitem value="Cadastrar evento" url="http://localhost:8080/ApsTrabalho-Apresentacao1/faces/pages/pageCadastroEvento.xhtml" />
+				<p:menuitem value="Atualizar/Modificar evento" url="#" />
+				<p:menuitem value="Indicar revisores do evento" url="#" />
+				<p:submenu label="Visualizar eventos">
+					<p:menuitem value="Eventos Abertos" url="http://localhost:8080/ApsTrabalho-Apresentacao1/faces/pages/pagePesquisaEvento.xhtml" />
+					<p:menuitem value="Eventos Fechados" url="http://localhost:8080/ApsTrabalho-Apresentacao1/faces/pages/pagePesquisaEvento.xhtml" />
+				</p:submenu>
+
+			</p:submenu>
+
+			<p:submenu label="Artigos">
+				<p:menuitem value="Visualizar artigos" url="#" />
+				<p:menuitem value="Submeter artigo" url="#" />
+				<p:menuitem value="Indicar revisor/avaliador do artigo" url="#" />
+				<p:menuitem value="Avaliar artigo" url="#" />
+			</p:submenu>
+
+			<f:facet name="options">
+				<p:commandButton value="Sair" ajax="false" action="#{usuarioBean.sair()}" update="@form"/>
+			</f:facet>
+		</p:menubar>
+	</h:form>
+
+</ui:composition>
+</html>

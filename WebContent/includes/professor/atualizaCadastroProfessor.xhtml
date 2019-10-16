@@ -20,25 +20,31 @@
 				<h:panelGrid columns="2">
 	
 					<p:outputLabel value="Nome:" />
-					<p:inputText value="#{usuarioBean.usuario2.nome}" maxlength="50" size="30"/>
+					<p:inputText value="#{professorBean.professor2.nome}" maxlength="50" size="30"/>
 	
 					<p:outputLabel value="E-mail:" />
-					<p:inputText id="email" value="#{usuarioBean.usuario2.email}" maxlength="50" size="30" />
+					<p:inputText id="email" value="#{professorBean.professor2.email}" maxlength="50" size="30" />
 	
 					<p:outputLabel value="Senha:" />
-					<p:password id="senha" value="#{usuarioBean.usuario2.senha}" maxlength="50" size="30" />
+					<p:password id="senha" value="#{professorBean.professor2.senha}" maxlength="50" size="30" />
 	
 					<p:outputLabel value="Instituição:" />
-					<p:inputText id="instituicao" value="#{usuarioBean.usuario2.instituicao}" maxlength="50" size="30" />
+					<p:inputText id="instituicao" value="#{professorBean.professor2.instituicao}" maxlength="50" size="30" />
+	
+					<p:outputLabel value="Titulação:" />
+					<p:inputText id="titulacao" value="#{professorBean.professor2.titulacao}" maxlength="50" size="30" />
+					
+					<p:outputLabel value="Área de Pesquisa:" />
+					<p:inputText id="areaDePesquisa" value="#{professorBean.professor2.areaDePesquisa}" maxlength="50" size="30" />
 	
 				</h:panelGrid>
 				
 				<br/>
 				<h:panelGrid columns="2">
 				
-					<p:commandButton value="Atualizar" actionListener="#{usuarioBean.atualizarCadastro()}" 
+					<p:commandButton value="Atualizar" actionListener="#{professorBean.atualizarCadastro()}" 
 					 update = ":msgCadastro :form:atualizaCadastroUsuario"/>
-					<p:commandButton ajax="false" value="Cancelar" action="pagePesquisaEvento.xhtml?faces-redirect=true"/>
+					<p:commandButton ajax="false" value="Cancelar" action="professor/pagePesquisaEventoProfessor.xhtml?faces-redirect=true"/>
 	
 				</h:panelGrid>
 				

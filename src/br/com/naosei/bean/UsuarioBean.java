@@ -19,6 +19,8 @@ public class UsuarioBean {
 	private List<Usuario> usuarios = new ArrayList<Usuario>();
 	private String email;
 	private String senha;
+	private static String email2;
+	private static String senha2;
 	private static int id;
 	private boolean verificador;
 	
@@ -54,6 +56,22 @@ public class UsuarioBean {
 		this.senha = senha;
 	}
 	
+	public static String getEmail2() {
+		return email2;
+	}
+
+	public static void setEmail2(String email2) {
+		UsuarioBean.email2 = email2;
+	}
+
+	public static String getSenha2() {
+		return senha2;
+	}
+
+	public static void setSenha2(String senha2) {
+		UsuarioBean.senha2 = senha2;
+	}
+
 	public void setVerificador(boolean verificador) {
 		this.verificador = verificador;
 	}
@@ -95,18 +113,30 @@ public class UsuarioBean {
 	}
 	
 	public String logar() {
-
+		
 		usuario = new UsuarioDAO().checkLogin(email, senha);
-//		System.out.println(usuario.getId());
-
+		
 		if (usuario.getId()>0) {
 			UsuarioBean.id = usuario.getId();
 			System.out.println(UsuarioBean.id);
 			//this.msgLogin = "";
-			return "pagePesquisaEvento.xhtml?faces-redirect=true";
+			System.out.println(usuario.getTipo());
+			
+			UsuarioBean.setEmail2(email);
+			UsuarioBean.setSenha2(senha);
+			
+			if(usuario.getTipo().equals("Professor"))
+				return "professor/pagePesquisaEventoProfessor.xhtml?faces-redirect=true";
+			
+			else if(usuario.getTipo().equals("Administrador"))
+				return "administrador/pagePesquisaEventoAdministrador.xhtml?faces-redirect=true";
+			
+			else
+				return "aluno/pagePesquisaEventoAluno.xhtml?faces-redirect=true";
+			
 		} else {
 			//this.msgLogin = "E-mail ou senha incorretos!";
-			FacesUtil.adicionarMsgErro("Usuário ou senha incorreto(s).");
+			FacesUtil.adicionarMsgErro("E-mail ou senha incorreto(s).");
 			return "E-mail ou senha incorretos!";
 		}
 
@@ -120,15 +150,15 @@ public class UsuarioBean {
 	
 	public void atualizarCadastro() {
 		
-		if(usuario2.getNome() == "")			usuario2.setNome(usuario.getNome());
+		if(usuario2.getNome().equals(""))			usuario2.setNome(usuario.getNome());
 		
-		if(usuario2.getEmail() == "")			usuario2.setEmail(usuario.getEmail());
+		if(usuario2.getEmail().equals(""))			usuario2.setEmail(usuario.getEmail());
 		else   									email = usuario2.getEmail();
 		
-		if(usuario2.getSenha() == "")			usuario2.setSenha(usuario.getSenha());
+		if(usuario2.getSenha().equals(""))			usuario2.setSenha(usuario.getSenha());
 		else   									senha = usuario2.getSenha();
 		
-		if(usuario2.getInstituicao() == "")		usuario2.setInstituicao(usuario.getInstituicao());
+		if(usuario2.getInstituicao().equals(""))		usuario2.setInstituicao(usuario.getInstituicao());
 		
 		usuario2.setId(usuario.getId());
 		
@@ -147,19 +177,3 @@ public class UsuarioBean {
 	}
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
