@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition>
+
+	<p:growl id="msgCadastroEventos" sticky="true"/>
+	
+	<f:event listener="#{eventoBean.carregarPesquisa()}" type="preRenderView" />
+	<h:form id="form">
+	
+		<p:panel id="eventos" header="Eventos" style="margin-bottom:10px;">
+	
+			<p:dataTable id="table" emptyMessage="Nenhum conteúdo encontrado" 
+				value="#{eventoBean.eventos}" 
+				filteredValue="#{eventoBean.eventosFiltrados}" 
+				var="evento"
+				rows="5" paginator="true">
+				
+				<p:column headerText="Nome" filterBy="#{evento.nome}" sortBy="#{evento.nome}" style="text-align: center">
+					<h:outputText value="#{evento.nome}" rendered="#{not evento.editando}"/>
+				</p:column>
+	
+				<p:column headerText="Sigla" style="text-align: center">
+					<h:outputText value="#{evento.sigla}" rendered="#{not evento.editando}"/>
+				</p:column>
+	
+				<p:column headerText="Data de Início" style="text-align: center">
+					<h:outputText value="#{evento.dataInicio}" rendered="#{not evento.editando}"/>
+				</p:column>
+	
+				<p:column headerText="Data de Fim" style="text-align: center">
+					<h:outputText value="#{evento.dataFim}" rendered="#{not evento.editando}"/>
+				</p:column>
+	
+				<p:column headerText="Área" style="text-align: center">
+					<h:outputText value="#{evento.areaDeConcentracao}" rendered="#{not evento.editando}"/>
+				</p:column>
+	
+				<p:column headerText="Palavras Chave" filterBy="#{evento.palavraChave}" sortBy="#{evento.palavraChave}" style="text-align: center">
+					<h:outputText value="#{evento.palavraChave}" rendered="#{not evento.editando}"/>
+				</p:column>
+				
+				<p:column headerText="Situação" filterBy="#{evento.situacao}" sortBy="#{evento.situacao}" style="text-align: center">
+					<h:outputText value="#{evento.situacao}" rendered="#{not evento.editando}"/>
+				</p:column>
+
+				<p:column style="width:100px;text-align: center">
+					<p:commandButton icon="fa fa-edit" update=":form:formularioAtualizarEvento" actionListener="#{eventoBean.editar(evento)}" oncomplete="PF('atualizarEvento').show()" title="View">
+						<f:setPropertyActionListener value="#{evento}" target="#{eventoBean.evento}" />
+					</p:commandButton>
+					<p:commandButton icon="fa fa-trash-o" actionListener="#{eventoBean.editar(evento)}" oncomplete="PF('confirmacao').show()" title="View">
+						<f:setPropertyActionListener value="#{evento}" target="#{eventoBean.evento}" />
+					</p:commandButton>
+				</p:column>
+
+				<f:facet name="footer">
+					<p:commandButton value="Adicionar" ajax="false" action="pageCadastroEvento.xhtml?faces-redirect=true"/>
+				</f:facet>
+	
+			</p:dataTable>
+			
+			<p:dialog header="Atualizar Evento" widgetVar="atualizarEvento"
+				showEffect="fade" hideEffect="fade" resizable="false">
+				<p:outputPanel id="formularioAtualizarEvento" >
+					<h:panelGrid columns="2">
+
+						<p:outputLabel value="Nome:" />
+						<p:inputText value="#{eventoBean.evento.nome}" maxlength="50" size="30" />
+		
+						<p:outputLabel value="Sigla: " />
+						<p:inputText value="#{eventoBean.evento.sigla}" maxlength="6" size="30" />
+		
+						<p:outputLabel value="Data de Início:" />
+						<p:calendar value="#{eventoBean.evento.dataInicio}" />
+		
+						<p:outputLabel value="Data de Fim:" />
+						<p:calendar value="#{eventoBean.evento.dataFim}" />
+		
+						<p:outputLabel value="Área:" />
+						<p:inputText value="#{eventoBean.evento.areaDeConcentracao}" maxlength="50" size="30" />
+		
+						<p:outputLabel value="Palavras Chave:" />
+						<p:inputText value="#{eventoBean.evento.palavraChave}" maxlength="50" size="30" />
+						
+					</h:panelGrid>
+					<br/>
+					<center>
+						<p:selectOneButton value="#{eventoBean.evento.situacao}">
+				            <f:selectItem itemLabel="Aguardando Abertura" itemValue="Aguardando Abertura" />
+				            <f:selectItem itemLabel="Aberto" itemValue="Aberto" />
+				            <f:selectItem itemLabel="Fechado" itemValue="Fechado" />
+				        </p:selectOneButton>
+					
+						<br/>
+						<br/>
+						<h:panelGrid columns="2">
+						
+							<p:commandButton value="Atualizar" actionListener="#{eventoBean.atualizar()}" update=":msgCadastroEventos :form:formularioAtualizarEvento"/>
+							<p:commandButton ajax="false" value="Cancelar" action="pagePesquisaEventoAdministrador.xhtml?faces-redirect=true"/>
+						
+						</h:panelGrid>
+					</center>
+					
+				</p:outputPanel>
+				
+			</p:dialog>
+			
+			<p:dialog header="Você tem certeza?" widgetVar="confirmacao"
+				showEffect="fade" hideEffect="fade" resizable="false">
+				<center>
+					<h:panelGrid columns="2">
+					
+						<p:commandButton value="Sim" update=":form:eventos" actionListener="#{eventoBean.remover()}" title="View"/>
+						
+						<p:commandButton value="Não" oncomplete="PF('confirmacao').hide()"/>
+					
+					</h:panelGrid>
+				</center>
+				
+			</p:dialog>
+
+		</p:panel>
+
+	</h:form>
+
+</ui:composition>
+
+</html>

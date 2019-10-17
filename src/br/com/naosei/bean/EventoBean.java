@@ -15,9 +15,8 @@ import br.com.naosei.util.FacesUtil;
 public class EventoBean {
 
 	private Evento evento = new Evento();
-	private List<Evento> eventos = new ArrayList<Evento>();
-	private List<Evento> eventosFiltrados = new ArrayList<Evento>();
-//	private String msg;
+	private List<Evento> eventos;
+	private List<Evento> eventosFiltrados;
 	private int idAdministrador = UsuarioBean.getId();
 	private boolean verificador = false;
 
@@ -36,14 +35,6 @@ public class EventoBean {
 	public void setIdAdministrador(int idAdministrador) {
 		this.idAdministrador = idAdministrador;
 	}
-
-//	public String getMsg() {
-//		return msg;
-//	}
-//
-//	public void setMsg(String msg) {
-//		this.msg = msg;
-//	}
 
 	public void setEventos(List<Evento> eventos) {
 		this.eventos = eventos;
@@ -81,14 +72,38 @@ public class EventoBean {
 		this.verificador = new EventoDAO().salvar(evento);
 		if (this.verificador)
 			FacesUtil.adicionarMsgInfo("Cadastro realizado com sucesso!");
-//		this.msg = "Evento foi adicionado com sucesso!";
 		else
 			FacesUtil.adicionarMsgErro("Nome ou sigla já cadastrado(s).");
-//		this.msg = "Falha ao adicionar o evento. Nome ou sigla já existente(s).";
 		System.out.println(verificador);
 
 		evento = new Evento();
 
+	}
+	
+	public void editar(Evento evento2) {
+
+		this.evento = evento2;
+
+	}
+	
+	public void atualizar() {
+		
+		this.verificador = new EventoDAO().atualizar(evento);
+		
+		if(this.verificador)
+			FacesUtil.adicionarMsgInfo("Atualização realizada com sucesso!");
+		else
+			FacesUtil.adicionarMsgErro("Erro ao editar o evento.");
+		
+	}
+	
+	public void remover() {
+		
+		this.verificador = new EventoDAO().remover(evento);
+		
+		if(this.verificador == false)
+			FacesUtil.adicionarMsgErro("Erro ao remover o evento.");
+		
 	}
 	
 	public void carregarPesquisa() {
@@ -109,35 +124,5 @@ public class EventoBean {
 		}
 		
 	}
-
-//	private void abrirDialogoSucesso() {
-//		Map<String, Object> opcoes =  new HashMap<>();
-//		
-//		opcoes.put("modal", true);
-//		opcoes.put("resizable", false);
-//		opcoes.put("contentHeight", 100);
-//		
-//		RequestContext.getCurrentInstance().openDialog("sucesso", opcoes, null);  
-//	}
-////	
-//	private void abrirDialogoErro() {
-//		Map<String, Object> opcoes =  new HashMap<>();
-//		
-//		opcoes.put("modal", true);
-//		opcoes.put("resizable", false);
-//		opcoes.put("contentHeight", 100);
-//		
-//		RequestContext.getCurrentInstance().openDialog("falha", opcoes, null);  
-//	}
-//	
-//	public void abrirDialogoDeAdicionarEvento() {
-//		Map<String, Object> opcoes =  new HashMap<>();
-//		
-//		opcoes.put("modal", true);
-//		opcoes.put("resizable", false);
-//		opcoes.put("contentHeight", 400);
-//		
-//		RequestContext.getCurrentInstance().openDialog("cadastroEventos", opcoes, null);  
-//	}
 
 }

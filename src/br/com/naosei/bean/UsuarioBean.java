@@ -126,13 +126,13 @@ public class UsuarioBean {
 			UsuarioBean.setSenha2(senha);
 			
 			if(usuario.getTipo().equals("Professor"))
-				return "professor/pagePesquisaEventoProfessor.xhtml?faces-redirect=true";
+				return "pagePesquisaEventoProfessor.xhtml?faces-redirect=true";
 			
 			else if(usuario.getTipo().equals("Administrador"))
-				return "administrador/pagePesquisaEventoAdministrador.xhtml?faces-redirect=true";
+				return "pagePesquisaEventoAdministrador.xhtml?faces-redirect=true";
 			
 			else
-				return "aluno/pagePesquisaEventoAluno.xhtml?faces-redirect=true";
+				return "pagePesquisaEventoAluno.xhtml?faces-redirect=true";
 			
 		} else {
 			//this.msgLogin = "E-mail ou senha incorretos!";
@@ -145,6 +145,9 @@ public class UsuarioBean {
 	public String sair() {
 		UsuarioBean.id = -1;
 		System.out.println(UsuarioBean.id);
+		new UsuarioBean();
+		email = "";
+		email2 = "";
 		return "pageLogin.xhtml?faces-redirect=true";
 	}
 	

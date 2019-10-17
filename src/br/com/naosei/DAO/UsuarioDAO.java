@@ -71,7 +71,7 @@ public class UsuarioDAO {
 		
 		Connection conexao = FabricaConexao.getConexao();
 		
-		String emailTemporario = usuario.getEmail() + "1";
+		String emailTemporario = "_" + usuario.getEmail();
 		
 		System.out.println(emailTemporario);
 		

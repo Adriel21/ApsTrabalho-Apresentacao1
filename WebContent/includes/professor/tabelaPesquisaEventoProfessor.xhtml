@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition>
+
+	<f:event listener="#{eventoBean.carregarPesquisa()}" type="preRenderView" />
+	<h:form>
+	
+		<p:panel id="eventos" header="Eventos" style="margin-bottom:10px;">
+	
+			<p:dataTable emptyMessage="Nenhum conteúdo encontrado" 
+				value="#{eventoBean.eventos}" 
+				var="evento" 
+				rows="5" paginator="true">
+	
+				<p:column headerText="Nome" filterBy="#{evento.nome}" sortBy="#{evento.nome}" style="text-align: center">
+					<h:outputText value="#{evento.nome}"/>
+				</p:column>
+	
+				<p:column headerText="Sigla" style="text-align: center">
+					<h:outputText value="#{evento.sigla}"/>
+				</p:column>
+	
+				<p:column headerText="Data de Início" style="text-align: center">
+					<h:outputText value="#{evento.dataInicio}"/>
+				</p:column>
+	
+				<p:column headerText="Data de Fim" style="text-align: center">
+					<h:outputText value="#{evento.dataFim}"/>
+				</p:column>
+	
+				<p:column headerText="Área" style="text-align: center">
+					<h:outputText value="#{evento.areaDeConcentracao}"/>
+				</p:column>
+	
+				<p:column headerText="Palavras Chave" filterBy="#{evento.palavraChave}" sortBy="#{evento.palavraChave}" style="text-align: center">
+					<h:outputText value="#{evento.palavraChave}"/>
+				</p:column>
+				
+				<p:column headerText="Situação" filterBy="#{evento.situacao}" sortBy="#{evento.situacao}" style="text-align: center">
+					<h:outputText value="#{evento.situacao}"/>
+				</p:column>
+	
+			</p:dataTable>
+		
+		</p:panel>
+
+	</h:form>
+
+</ui:composition>
+
+</html>

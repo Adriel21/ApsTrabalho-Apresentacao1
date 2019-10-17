@@ -99,4 +99,9 @@ public class ProfessorBean {
 		
 	}
 	
+	public String sair() {
+		professor  = new Professor();
+		return "pageLogin.xhtml?faces-redirect=true";
+	}
+	
 }

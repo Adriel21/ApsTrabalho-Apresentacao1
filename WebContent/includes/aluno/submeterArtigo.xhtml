@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition>
+
+	<p:growl id="msgCadastroArtigos" sticky="true"/>
+
+	<h:form id="form">
+	
+		<center>
+			<p:panel id="cadastroArtigos" header="Inscrever Artigo" style="margin-bottom:10px;">
+				<br/>
+				<h:panelGrid columns="2">
+	
+					<p:outputLabel value="Título:" />
+					<p:inputText value="#{artigoBean.artigo.titulo}" maxlength="50" size="30" />
+	
+					<p:outputLabel value="Autores: " />
+					<p:inputText value="#{artigoBean.artigo.autores}" maxlength="100" size="30" />
+	
+					<p:outputLabel value="Resumo:" />
+					<p:inputText value="#{artigoBean.artigo.resumo}" maxlength="400" size="30" />
+					
+				</h:panelGrid>
+				
+				<br/>	
+				<h:panelGrid columns="2">
+	
+					<p:commandButton value="Submeter" actionListener="#{artigoBean.adicionar()}" update=":msgCadastroArtigos :form:cadastroArtigos"/>
+					<p:commandButton ajax="false" value="Cancelar" action="pageSubmeterArtigo.xhtml?faces-redirect=true"/>
+	
+				</h:panelGrid>
+			
+			</p:panel>
+		</center>
+		
+
+	</h:form>
+
+</ui:composition>
+
+</html>

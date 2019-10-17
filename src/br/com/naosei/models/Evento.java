@@ -11,7 +11,9 @@ public class Evento {
 	private Date dataFim;
 	private String palavraChave;
 	private String areaDeConcentracao;
+	private String situacao;
 	private int idAdministrador;
+	private transient boolean editando;
 
 	public int getIdAdministrador() {
 		return idAdministrador;
@@ -19,6 +21,14 @@ public class Evento {
 
 	public void setIdAdministrador(int idAdministrador) {
 		this.idAdministrador = idAdministrador;
+	}
+
+	public boolean isEditando() {
+		return editando;
+	}
+
+	public void setEditando(boolean editando) {
+		this.editando = editando;
 	}
 
 	public int getId() {
@@ -75,6 +85,14 @@ public class Evento {
 
 	public void setAreaDeConcentracao(String areaDeConcentracao) {
 		this.areaDeConcentracao = areaDeConcentracao;
+	}
+	
+	public String getSituacao() {
+		return situacao;
+	}
+
+	public void setSituacao(String situacao) {
+		this.situacao = situacao;
 	}
 
 	@Override
